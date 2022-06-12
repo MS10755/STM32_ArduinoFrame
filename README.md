@@ -6,7 +6,7 @@ STM32_ArduinoFrame 框架可以使Arduino 平台编写的应用程序 几部不�
 
 ## 框架结构
 
-![软件框架](STM32F10xxSTD_LLA_Arduino\DOC\DOC\images\frame.jpg)
+![软件框架](DOC\DOC\images\frame.jpg)
 
 
 
