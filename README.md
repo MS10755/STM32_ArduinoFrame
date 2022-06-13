@@ -19,4 +19,4 @@ STM32_ArduinoFrame 框架可以使Arduino 平台编写的应用程序 几部不�
 
 
 ## 鸣谢
-特别感谢 [**@FASTSHIFT**](https://github.com/FASTSHIFT) 大佬对我开发过程中的启发和帮助，使用Arduino 在Keil中开发STM32也是他的灵感。我只是按照自己的使用习惯进行了重写。
+特别感谢 [**@_VIFEXTech**](https://github.com/FASTSHIFT) 大佬对我开发过程中的启发和帮助，使用Arduino 在Keil中开发STM32也是他的灵感。我只是按照自己的使用习惯进行了重写。
