@@ -31,7 +31,8 @@ extern "C" {
 #include "./LLA_Drivers/inc/LLA_WDG.h"
 #include "./LLA_Drivers/inc/LLA_errorCode.h"
 #include "./LLA_Drivers/inc/LLA_compiler.h"
-	
+#include "./LLA_Drivers/inc/LLA_IOMaps.h"
+
 #ifdef __cplusplus
 }
 #endif

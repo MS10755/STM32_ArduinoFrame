@@ -65,6 +65,15 @@ void yield(void);
 #define degrees(rad) ((rad)*RAD_TO_DEG)
 #define sq(x) ((x)*(x))
 
+
+
+#define analogInPinToBit(Pin)       (Pin)
+#define digitalPinToInterrupt(Pin)  (Pin)
+#define digitalPinToPort(Pin)       (LLA_IOMaps_NameToPort(Pin))
+#define digitalPinToBitMask(Pin)    (LLA_IOMaps_NameMask(Pin))
+#define portInputRegister(Port)     ((Port).IDR)
+#define portOutputRegister(Port)    ((Port).ODR)
+
 #define interrupts() sei()
 #define noInterrupts() cli()
 
