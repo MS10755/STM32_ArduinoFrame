@@ -58,9 +58,15 @@ Adafruit_MQTT_Subscribe onoffbutton = Adafruit_MQTT_Subscribe(&mqtt,  "/feeds/on
 
 /*************************** Sketch Code ************************************/
 StaticJsonDocument<1024> doc;
-
+#include "Adafruit_ILI9481FMC16.h"
+Adafruit_ILI9481FMC16 gfx = Adafruit_ILI9481FMC16();
 void setup() {
-	
+	pinMode(PB0,OUTPUT);
+	digitalWrite(PB0,HIGH);
+	gfx.begin();
+	gfx.fillScreen(0);
+	gfx.println("hello world");
+//	while(1){};
   Serial.begin(115200);
 
   Serial.println(F("Adafruit MQTT demo"));

@@ -3,7 +3,11 @@
 
 #ifdef __cplusplus
 extern "C"{
+#endif
+
 #include "LLA_Drivers.h"
+	
+#ifdef __cplusplus
 }
 #endif
 
