@@ -69,8 +69,8 @@ void yield(void);
 
 #define analogInPinToBit(Pin)       (Pin)
 #define digitalPinToInterrupt(Pin)  (Pin)
-#define digitalPinToPort(Pin)       (LLA_IOMaps_NameToPort(Pin))
-#define digitalPinToBitMask(Pin)    (LLA_IOMaps_NameMask(Pin))
+#define digitalPinToPort(Pin)       (LLA_IOMaps_NameToPort((BaseIO_name_t)Pin))
+#define digitalPinToBitMask(Pin)    (LLA_IOMaps_NameMask((BaseIO_name_t)Pin))
 #define portInputRegister(Port)     ((Port).IDR)
 #define portOutputRegister(Port)    ((Port).ODR)
 

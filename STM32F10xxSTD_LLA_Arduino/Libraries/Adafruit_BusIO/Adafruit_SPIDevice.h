@@ -40,9 +40,9 @@ typedef BitOrder BusIOBitOrder;
 #endif
 
 #if defined(__AVR__) || defined(TEENSYDUINO)
-//typedef volatile uint8_t BusIO_PortReg;
-//typedef uint8_t BusIO_PortMask;
-//#define BUSIO_USE_FAST_PINIO
+typedef volatile uint32_t BusIO_PortReg;
+typedef uint32_t BusIO_PortMask;
+#define BUSIO_USE_FAST_PINIO
 
 #elif defined(ESP8266) || defined(ESP32) || defined(__SAM3X8E__) ||            \
     defined(ARDUINO_ARCH_SAMD)
