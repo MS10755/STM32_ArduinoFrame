@@ -64,8 +64,9 @@ void setup() {
 	pinMode(PB0,OUTPUT);
 	digitalWrite(PB0,HIGH);
 	gfx.begin();
+	gfx.fillScreen(0xFF0F);
 	gfx.fillScreen(0);
-	gfx.println("hello world");
+	gfx.println("hello world 22");
 //	while(1){};
   Serial.begin(115200);
 

@@ -5,7 +5,7 @@ extern "C" {
 
 #define SET_X_CMD	0x2A
 #define SET_Y_CMD	0x2B
-#define SET_RAM_CMD	0x2B
+#define SET_RAM_CMD	0x2C
 
 void Adafruit_ILI9481FMC16::begin(){
 	FMC16Bit_Init();
@@ -72,6 +72,18 @@ void Adafruit_ILI9481FMC16::begin(){
 		FMC16Bit_WriteCmd(0X29); 
 }
 
+void SetWindow(int16_t x, int16_t y, int16_t w, int16_t h){
+		FMC16Bit_WriteCmd(SET_X_CMD); 
+		FMC16Bit_WriteData(x>>8); 
+		FMC16Bit_WriteData(x&0XFF);	 
+		FMC16Bit_WriteData((x+w-1)>>8); 
+		FMC16Bit_WriteData((x+w-1)&0XFF);  
+		FMC16Bit_WriteCmd(SET_Y_CMD); 
+		FMC16Bit_WriteData(y>>8); 
+		FMC16Bit_WriteData(y&0XFF); 
+		FMC16Bit_WriteData((y+h-1)>>8); 
+		FMC16Bit_WriteData((y+h-1)&0XFF);
+}
 
 void Adafruit_ILI9481FMC16::drawPixel(int16_t x, int16_t y, uint16_t color){
 	FMC16Bit_WriteCmd(SET_X_CMD); 
@@ -83,19 +95,29 @@ void Adafruit_ILI9481FMC16::drawPixel(int16_t x, int16_t y, uint16_t color){
 }
 
 void Adafruit_ILI9481FMC16::writeFillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color){
-		FMC16Bit_WriteCmd(SET_X_CMD); 
-		FMC16Bit_WriteData(x>>8); 
-		FMC16Bit_WriteData(x&0XFF);	 
-		FMC16Bit_WriteData((x+w-1)>>8); 
-		FMC16Bit_WriteData((x+w-1)&0XFF);  
-		FMC16Bit_WriteCmd(SET_Y_CMD); 
-		FMC16Bit_WriteData(y>>8); 
-		FMC16Bit_WriteData(y&0XFF); 
-		FMC16Bit_WriteData((y+h-1)>>8); 
-		FMC16Bit_WriteData((y+h-1)&0XFF);
+	SetWindow(x,y,w,h);
 	FMC16Bit_WriteCmd(SET_RAM_CMD);
 	uint32_t points = w*h;
 	for(uint32_t i=0;i<points;i++){
-		FMC16Bit_WriteData(color);
+		LCD->LCD_RAM = color;
 	}
+}
+
+void Adafruit_ILI9481FMC16::writeFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color){
+	SetWindow(x,y,1,h);
+	FMC16Bit_WriteCmd(SET_RAM_CMD);
+	for(uint16_t i=0;i<h;i++){
+		LCD->LCD_RAM =color;
+	}
+}
+void Adafruit_ILI9481FMC16::writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color){
+	SetWindow(x,y,w,1);
+	FMC16Bit_WriteCmd(SET_RAM_CMD);
+	for(uint16_t i=0;i<w;i++){
+		LCD->LCD_RAM =color;
+	}
+}
+
+void Adafruit_ILI9481FMC16::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color){
+	writeFillRect(x,y,w,h,color);
 }
