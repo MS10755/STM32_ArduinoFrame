@@ -14,6 +14,10 @@ class Adafruit_ILI9481FMC16 : public Adafruit_GFX
   void writeFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color) override;
 		
 	void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) override;
+		
+	uint16_t color565(uint8_t r,uint8_t g,uint8_t b){
+		return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+	}
 };
 
 

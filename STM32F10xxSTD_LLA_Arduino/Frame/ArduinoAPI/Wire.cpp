@@ -228,7 +228,7 @@ uint8_t TwoWire::process(void)
         }
     }
     i2c_stop();
-    return SUCCESS;
+    return SUCCESS_;
 }
 
 // TODO: Add in Error Handling if pins is out of range for other Maples

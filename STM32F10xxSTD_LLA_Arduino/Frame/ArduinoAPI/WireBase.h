@@ -46,7 +46,7 @@
 #define WIRE_BUFSIZ 32
 
 /* return codes from endTransmission() */
-#define SUCCESS   0        /* transmission was successful */
+#define SUCCESS_   0        /* transmission was successful */
 #define EDATA     1        /* too much data */
 #define ENACKADDR 2        /* received nack on transmit of address */
 #define ENACKTRNS 3        /* received nack on transmit of data */
