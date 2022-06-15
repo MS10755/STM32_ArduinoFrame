@@ -86,10 +86,7 @@ void SetWindow(int16_t x, int16_t y, int16_t w, int16_t h){
 }
 
 void Adafruit_ILI9481FMC16::drawPixel(int16_t x, int16_t y, uint16_t color){
-	FMC16Bit_WriteCmd(SET_X_CMD); 
-	FMC16Bit_WriteData(x>>8);FMC16Bit_WriteData(x&0XFF); 
-	FMC16Bit_WriteCmd(SET_Y_CMD); 
-	FMC16Bit_WriteData(y>>8);FMC16Bit_WriteData(y&0XFF); 
+	SetWindow(x,y,1,1);
 	FMC16Bit_WriteCmd(SET_RAM_CMD);
 	FMC16Bit_WriteData(color);
 }
