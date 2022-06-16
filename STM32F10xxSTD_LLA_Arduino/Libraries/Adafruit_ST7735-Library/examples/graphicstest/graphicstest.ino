@@ -37,10 +37,24 @@
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h>
 
-#define TFT_BL PA4
-#define TFT_CS PA2
-#define TFT_DC PA1
-#define TFT_RST PA0
+#if defined(ARDUINO_FEATHER_ESP32) // Feather Huzzah32
+  #define TFT_CS         14
+  #define TFT_RST        15
+  #define TFT_DC         32
+
+#elif defined(ESP8266)
+  #define TFT_CS         4
+  #define TFT_RST        16                                            
+  #define TFT_DC         5
+
+#else
+  // For the breakout board, you can use any 2 or 3 pins.
+  // These pins will also work for the 1.8" TFT shield.
+  #define TFT_CS        10
+  #define TFT_RST        9 // Or set to -1 and connect to Arduino RESET pin
+  #define TFT_DC         8
+#endif
+
 // OPTION 1 (recommended) is to use the HARDWARE SPI pins, which are unique
 // to each board and not reassignable. For Arduino Uno: MOSI = pin 11 and
 // SCLK = pin 13. This is the fastest mode of operation and is required if
@@ -64,7 +78,105 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 // OR for the ST7789-based displays, we will use this call
 //Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
 
+
 float p = 3.1415926;
+
+void setup(void) {
+  Serial.begin(9600);
+  Serial.print(F("Hello! ST77xx TFT Test"));
+
+  // Use this initializer if using a 1.8" TFT screen:
+  tft.initR(INITR_BLACKTAB);      // Init ST7735S chip, black tab
+
+  // OR use this initializer if using a 1.8" TFT screen with offset such as WaveShare:
+  // tft.initR(INITR_GREENTAB);      // Init ST7735S chip, green tab
+
+  // OR use this initializer (uncomment) if using a 1.44" TFT:
+  //tft.initR(INITR_144GREENTAB); // Init ST7735R chip, green tab
+
+  // OR use this initializer (uncomment) if using a 0.96" 160x80 TFT:
+  //tft.initR(INITR_MINI160x80);  // Init ST7735S mini display
+
+  // OR use this initializer (uncomment) if using a 1.3" or 1.54" 240x240 TFT:
+  //tft.init(240, 240);           // Init ST7789 240x240
+
+  // OR use this initializer (uncomment) if using a 1.69" 280x240 TFT:
+  //tft.init(240, 280);           // Init ST7789 280x240
+
+  // OR use this initializer (uncomment) if using a 2.0" 320x240 TFT:
+  //tft.init(240, 320);           // Init ST7789 320x240
+
+  // OR use this initializer (uncomment) if using a 1.14" 240x135 TFT:
+  //tft.init(135, 240);           // Init ST7789 240x135
+  
+  // OR use this initializer (uncomment) if using a 1.47" 172x320 TFT:
+  //tft.init(172, 320);           // Init ST7789 172x320
+
+  // SPI speed defaults to SPI_DEFAULT_FREQ defined in the library, you can override it here
+  // Note that speed allowable depends on chip and quality of wiring, if you go too fast, you
+  // may end up with a black screen some times, or all the time.
+  //tft.setSPISpeed(40000000);
+
+  Serial.println(F("Initialized"));
+
+  uint16_t time = millis();
+  tft.fillScreen(ST77XX_BLACK);
+  time = millis() - time;
+
+  Serial.println(time, DEC);
+  delay(500);
+
+  // large block of text
+  tft.fillScreen(ST77XX_BLACK);
+  testdrawtext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla sed malesuada et, malesuada sit amet turpis. Sed porttitor neque ut ante pretium vitae malesuada nunc bibendum. Nullam aliquet ultrices massa eu hendrerit. Ut sed nisi lorem. In vestibulum purus a tortor imperdiet posuere. ", ST77XX_WHITE);
+  delay(1000);
+
+  // tft print function!
+  tftPrintTest();
+  delay(4000);
+
+  // a single pixel
+  tft.drawPixel(tft.width()/2, tft.height()/2, ST77XX_GREEN);
+  delay(500);
+
+  // line draw test
+  testlines(ST77XX_YELLOW);
+  delay(500);
+
+  // optimized lines
+  testfastlines(ST77XX_RED, ST77XX_BLUE);
+  delay(500);
+
+  testdrawrects(ST77XX_GREEN);
+  delay(500);
+
+  testfillrects(ST77XX_YELLOW, ST77XX_MAGENTA);
+  delay(500);
+
+  tft.fillScreen(ST77XX_BLACK);
+  testfillcircles(10, ST77XX_BLUE);
+  testdrawcircles(10, ST77XX_WHITE);
+  delay(500);
+
+  testroundrects();
+  delay(500);
+
+  testtriangles();
+  delay(500);
+
+  mediabuttons();
+  delay(500);
+
+  Serial.println("done");
+  delay(1000);
+}
+
+void loop() {
+  tft.invertDisplay(true);
+  delay(500);
+  tft.invertDisplay(false);
+  delay(500);
+}
 
 void testlines(uint16_t color) {
   tft.fillScreen(ST77XX_BLACK);
@@ -253,103 +365,4 @@ void mediabuttons() {
   tft.fillRoundRect(69, 98, 20, 45, 5, ST77XX_RED);
   // play color
   tft.fillTriangle(42, 20, 42, 60, 90, 40, ST77XX_GREEN);
-}
-
-
-void setup(void) {
-  Serial.begin(115200);
-  Serial.print(F("Hello! ST77xx TFT Test"));
-	pinMode(TFT_BL,OUTPUT);
-	digitalWrite(TFT_BL, HIGH);
-  // Use this initializer if using a 1.8" TFT screen:
-  tft.initR(INITR_BLACKTAB);      // Init ST7735S chip, black tab
-
-  // OR use this initializer if using a 1.8" TFT screen with offset such as WaveShare:
-  // tft.initR(INITR_GREENTAB);      // Init ST7735S chip, green tab
-
-  // OR use this initializer (uncomment) if using a 1.44" TFT:
-  //tft.initR(INITR_144GREENTAB); // Init ST7735R chip, green tab
-
-  // OR use this initializer (uncomment) if using a 0.96" 160x80 TFT:
-  //tft.initR(INITR_MINI160x80);  // Init ST7735S mini display
-
-  // OR use this initializer (uncomment) if using a 1.3" or 1.54" 240x240 TFT:
-  //tft.init(240, 240);           // Init ST7789 240x240
-
-  // OR use this initializer (uncomment) if using a 1.69" 280x240 TFT:
-  //tft.init(240, 280);           // Init ST7789 280x240
-
-  // OR use this initializer (uncomment) if using a 2.0" 320x240 TFT:
-  //tft.init(240, 320);           // Init ST7789 320x240
-
-  // OR use this initializer (uncomment) if using a 1.14" 240x135 TFT:
-  //tft.init(135, 240);           // Init ST7789 240x135
-  
-  // OR use this initializer (uncomment) if using a 1.47" 172x320 TFT:
-  //tft.init(172, 320);           // Init ST7789 172x320
-
-  // SPI speed defaults to SPI_DEFAULT_FREQ defined in the library, you can override it here
-  // Note that speed allowable depends on chip and quality of wiring, if you go too fast, you
-  // may end up with a black screen some times, or all the time.
-  
-
-  Serial.println(F("Initialized"));
-
-  uint16_t time = millis();
-  tft.fillScreen(ST77XX_BLACK);
-  time = millis() - time;
-
-  Serial.println(time, DEC);
-  delay(500);
-
-  // large block of text
-  tft.fillScreen(ST77XX_BLACK);
-  testdrawtext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla sed malesuada et, malesuada sit amet turpis. Sed porttitor neque ut ante pretium vitae malesuada nunc bibendum. Nullam aliquet ultrices massa eu hendrerit. Ut sed nisi lorem. In vestibulum purus a tortor imperdiet posuere. ", ST77XX_WHITE);
-  delay(1000);
-
-  // tft print function!
-  tftPrintTest();
-  delay(4000);
-
-  // a single pixel
-  tft.drawPixel(tft.width()/2, tft.height()/2, ST77XX_GREEN);
-  delay(500);
-
-  // line draw test
-  testlines(ST77XX_YELLOW);
-  delay(500);
-
-  // optimized lines
-  testfastlines(ST77XX_RED, ST77XX_BLUE);
-  delay(500);
-
-  testdrawrects(ST77XX_GREEN);
-  delay(500);
-
-  testfillrects(ST77XX_YELLOW, ST77XX_MAGENTA);
-  delay(500);
-
-  tft.fillScreen(ST77XX_BLACK);
-  testfillcircles(10, ST77XX_BLUE);
-  testdrawcircles(10, ST77XX_WHITE);
-  delay(500);
-
-  testroundrects();
-  delay(500);
-
-  testtriangles();
-  delay(500);
-
-  mediabuttons();
-  delay(500);
-
-  Serial.println("done");
-  delay(1000);
-}
-
-void loop() {
-  tft.invertDisplay(true);
-  delay(500);
-  tft.invertDisplay(false);
-  delay(500);
 }
