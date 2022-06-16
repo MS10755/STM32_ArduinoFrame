@@ -1,6 +1,6 @@
 # STM32_ArduinoFrame
 ## 框架介绍
-STM32_ArduinoFrame 框架可以使Arduino 平台编写的应用程序 几部不需做任何更改，就可以在KEIL （目前支持AC5和AC6编译器）完美编译并执行。
+STM32_ArduinoFrame 框架可以使Arduino 平台编写的应用程序几乎不需做任何更改，就可以在KEIL （目前支持AC5和AC6编译器）完美编译并执行。
 注意：Arduino平台的部分第三方库必须使用AC6编译器才能编译通过。因此强烈建议大家抛弃AC5编译器而改用AC6编译器以更好支持C++代码的编译。
 
 ---
