@@ -30,4 +30,4 @@ Third party libraries or hardware independent libraries (such as algorithm libra
 
 ---
 
-Special thanks [**@\u vifextech**]（ https://github.com/FASTSHIFT ）He inspired and helped me in the development process. He was also inspired to use Arduino to develop STM32 in keil. I just rewritten it according to my own usage habits.
+Special thanks [**@_VIFEXTech**]（ https://github.com/FASTSHIFT ）He inspired and helped me in the development process. He was also inspired to use Arduino to develop STM32 in keil. I just rewritten it according to my own usage habits.
