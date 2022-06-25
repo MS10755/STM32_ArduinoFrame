@@ -16,7 +16,7 @@
         <TargetCommonOption>
           <Device>STM32F103ZE</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F1xx_DFP.2.2.0</PackID>
+          <PackID>Keil.STM32F1xx_DFP.2.1.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00010000) IROM(0x08000000,0x00080000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -321,7 +321,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>3</wLevel>
+            <wLevel>1</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,ARDUINO=111,ARDUINO_STM32</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Frame\LLA_Drivers;..\Drivers\STM32F10x_StdPeriph_Driver\inc;..\Drivers\CMSIS\CM3\CoreSupport;..\Drivers\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\Frame;..\USER;..\Drivers\STM32F10x_StdPeriph_Driver;..\Drivers;..\Frame\ArduinoAPI;..\Libraries\Ethernet\src;..\Libraries\Adafruit_MQTT_Library;..\Libraries\ArduinoJson;..\Libraries\ArduinoJson\src;..\Libraries\Adafruit_BusIO;..\Libraries\Adafruit_GFX_Library;..\Libraries\Adafruit_ILI9481FMC16_Library;..\Libraries\Adafruit_ST7735-Library;..\Libraries\Adafruit_SSD1309_Library;..\Libraries\MillisTaskManager</IncludePath>
+              <IncludePath>..\Frame\LLA_Drivers;..\Drivers\STM32F10x_StdPeriph_Driver\inc;..\Drivers\CMSIS\CM3\CoreSupport;..\Drivers\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\Frame;..\USER;..\Drivers\STM32F10x_StdPeriph_Driver;..\Drivers;..\Frame\ArduinoAPI;..\Libraries\Ethernet\src;..\Libraries\Adafruit_MQTT_Library;..\Libraries\ArduinoJson;..\Libraries\ArduinoJson\src;..\Libraries\Adafruit_BusIO;..\Libraries\Adafruit_GFX_Library;..\Libraries\Adafruit_ILI9481FMC16_Library;..\Libraries\Adafruit_ST7735-Library;..\Libraries\Adafruit_SSD1309_Library;..\Libraries\MillisTaskManager;..\Libraries\SdFat\src;..\Libraries\SdFat\src\SdCard</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -924,6 +924,246 @@
               <FileName>Adafruit_SSD1309.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Libraries\Adafruit_SSD1309_Library\Adafruit_SSD1309.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SdFat</GroupName>
+          <Files>
+            <File>
+              <FileName>FmtNumber.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\FmtNumber.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsCache.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\FsCache.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsDateTime.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\FsDateTime.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsName.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\FsName.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsStructs.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\FsStructs.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsUtf.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\FsUtf.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PrintBasic.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\PrintBasic.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>upcase.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\common\upcase.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatDbg.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatDbg.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatFile.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatFile.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatFilePrint.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatFilePrint.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatFileWrite.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatFileWrite.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatFormatter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatFormatter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatName.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatName.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatPartition.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatPartition.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExFatVolume.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\ExFatLib\ExFatVolume.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatDbg.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatDbg.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatFile.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatFile.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatFileLFN.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatFileLFN.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatFilePrint.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatFilePrint.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatFileSFN.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatFileSFN.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatFormatter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatFormatter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatName.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatName.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatPartition.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatPartition.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FatVolume.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FatLib\FatVolume.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsFile.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FsLib\FsFile.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsNew.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FsLib\FsNew.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FsVolume.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FsLib\FsVolume.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>istream.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\iostream\istream.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ostream.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\iostream\ostream.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StdioStream.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\iostream\StdioStream.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StreamBaseClass.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\iostream\StreamBaseClass.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdCardInfo.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SdCard\SdCardInfo.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdioTeensy.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SdCard\SdioTeensy.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiCard.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SdCard\SdSpiCard.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiArtemis.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiArtemis.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiChipSelect.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiChipSelect.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiDue.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiDue.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiESP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiESP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiParticle.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiParticle.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiSTM32.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiSTM32.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiSTM32Core.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiSTM32Core.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdSpiTeensy3.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SpiDriver\SdSpiTeensy3.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FreeStack.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\FreeStack.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MinimumSerial.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\MinimumSerial.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SdioSTM32F103.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Libraries\SdFat\src\SdCard\SdioSTM32F103.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>sdio_sdcard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\SdFat\src\SdCard\sdio_sdcard.c</FilePath>
             </File>
           </Files>
         </Group>
