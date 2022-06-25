@@ -1,0 +1,35 @@
+./objects/watchdoglla.o: \
+  ..\Libraries\Adafruit_SleepyDog_Library\utility\WatchdogLLA.cpp \
+  ..\Frame\ArduinoAPI\avr\interrupt.h \
+  ..\Libraries\Adafruit_SleepyDog_Library\utility\WatchdogLLA.h \
+  ..\Frame\LLA_Drivers.h ..\Frame\.\LLA_Drivers\inc\LLA_Assert.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdio.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__config \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdint.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\string.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdlib.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdbool.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_errorCode.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_ADC.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_baseIO.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_advanceIO.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_baseIO.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_EXTI.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_flash.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_PWM.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_SPI.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_SYS_clock.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_SYS_IRQ.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_SYS_time.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_SYS_rest.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_timer.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_UART.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_USB.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_WDG.h \
+  ..\Frame\.\LLA_Drivers\inc\LLA_compiler.h
