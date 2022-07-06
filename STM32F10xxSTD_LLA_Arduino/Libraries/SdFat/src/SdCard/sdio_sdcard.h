@@ -332,7 +332,32 @@ extern SD_CardInfo SDCardInfo;//SD卡信息
 #ifdef __cplusplus
 extern "C" {
 #endif
-//相关函数定义
+////相关函数定义
+//SD_Error SD_Init(void);
+//void SDIO_Clock_Set(u8 clkdiv);
+//void SDIO_Send_Cmd(u8 cmdindex,u8 waitrsp,u32 arg);
+//void SDIO_Send_Data_Cfg(u32 datatimeout,u32 datalen,u8 blksize,u8 dir);
+//SD_Error SD_PowerON(void);    
+//SD_Error SD_PowerOFF(void);
+//SD_Error SD_InitializeCards(void);
+//SD_Error SD_GetCardInfo(SD_CardInfo *cardinfo);		  
+//SD_Error SD_EnableWideBusOperation(u32 wmode);
+//SD_Error SD_SetDeviceMode(u32 mode);
+//SD_Error SD_SelectDeselect(u32 addr); 
+//SD_Error SD_SendStatus(uint32_t *pcardstatus);
+//SDCardState SD_GetState(void);
+//SD_Error SD_ReadBlock(u8 *buf,uint32_t addr,u16 blksize);  
+//SD_Error SD_ReadMultiBlocks(u8 *buf,uint32_t  addr,u16 blksize,u32 nblks);  
+//SD_Error SD_WriteBlock(u8 *buf,uint32_t addr,  u16 blksize);	
+//SD_Error SD_WriteMultiBlocks(u8 *buf,uint32_t addr,u16 blksize,u32 nblks);
+//SD_Error SD_ProcessIRQSrc(void);
+// 
+// 
+//void SD_DMA_Config(u32*mbuf,u32 bufsize,u32 dir); 
+
+//SD_Error SD_ReadDisk(u8*buf,u32 sector,u8 cnt); 	//读SD卡,fatfs/usb调用
+//SD_Error SD_WriteDisk(u8*buf,u32 sector,u8 cnt);	//写SD卡,fatfs/usb调用
+
 SD_Error SD_Init(void);
 void SDIO_Clock_Set(u8 clkdiv);
 void SDIO_Send_Cmd(u8 cmdindex,u8 waitrsp,u32 arg);
@@ -346,10 +371,10 @@ SD_Error SD_SetDeviceMode(u32 mode);
 SD_Error SD_SelectDeselect(u32 addr); 
 SD_Error SD_SendStatus(uint32_t *pcardstatus);
 SDCardState SD_GetState(void);
-SD_Error SD_ReadBlock(u8 *buf,uint32_t addr,u16 blksize);  
-SD_Error SD_ReadMultiBlocks(u8 *buf,uint32_t  addr,u16 blksize,u32 nblks);  
-SD_Error SD_WriteBlock(u8 *buf,uint32_t addr,  u16 blksize);	
-SD_Error SD_WriteMultiBlocks(u8 *buf,uint32_t addr,u16 blksize,u32 nblks);
+SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize);  
+SD_Error SD_ReadMultiBlocks(u8 *buf,long long  addr,u16 blksize,u32 nblks);  
+SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize);	
+SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks);
 SD_Error SD_ProcessIRQSrc(void);
  
  
