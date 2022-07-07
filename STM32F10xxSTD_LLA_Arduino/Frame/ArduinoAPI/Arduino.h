@@ -74,8 +74,6 @@ void yield(void);
 #define portInputRegister(Port)     ((Port).IDR)
 #define portOutputRegister(Port)    ((Port).ODR)
 
-#define interrupts() sei()
-#define noInterrupts() cli()
 
 #define clockCyclesPerMicrosecond() ( F_CPU / 1000000L )
 #define clockCyclesToMicroseconds(a) ( (a) / clockCyclesPerMicrosecond() )
@@ -174,8 +172,8 @@ long map(long, long, long, long, long);
 #endif
 
 
-#define cli()		__set_PRIMASK(1)
-#define sei()		__set_PRIMASK(0)
+#define cli()		LLA_SYS_IRQ_Disable()
+#define sei()		LLA_SYS_IRQ_Enable()
 
 #define interrupts() sei()
 #define noInterrupts() cli()

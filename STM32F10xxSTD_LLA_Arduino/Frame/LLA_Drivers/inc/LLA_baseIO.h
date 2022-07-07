@@ -49,7 +49,6 @@ typedef enum{
 }BaseIO_name_t;
 
 
-
 #define IS_IO_NAME(x)		(x<_BASEIO_NAME_MAX)
 #define IS_IO_MODE(x)		(x<_BASEIO_MODE_MAX)
 #define IS_IO_STATUS(x)	(x<_BASEIO_STATUS_MAX)

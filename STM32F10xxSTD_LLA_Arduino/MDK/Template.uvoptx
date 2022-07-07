@@ -250,7 +250,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>8</SubType>
-          <ItemText>Readbuff</ItemText>
+          <ItemText>&amp;data</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -2391,6 +2391,26 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\Drivers\USB\APP\Mass_Storage\src\usb_scsi.c</PathWithFileName>
       <FilenameWithoutPath>usb_scsi.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Adafruit_VS1053_Library</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>20</GroupNumber>
+      <FileNumber>161</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Libraries\Adafruit_VS1053_Library\Adafruit_VS1053.cpp</PathWithFileName>
+      <FilenameWithoutPath>Adafruit_VS1053.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
