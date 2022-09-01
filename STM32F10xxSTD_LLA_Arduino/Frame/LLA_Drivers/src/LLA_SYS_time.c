@@ -3,7 +3,10 @@
 /************************ LLA Interface headers includes ****************************/
 /* Chip SDK headers includes */
 #include "stm32f10x.h"                  // Device header
-
+#if LLA_OS_SUPPORT
+#include "FreeRTOS.h"
+#include "task.h"
+#endif
 
 /************************ LLA Interface micro define ****************************/
 #define LLA_SYS_TIME_CLK SystemCoreClock
@@ -127,11 +130,15 @@ start:
     goto start;
 }
 
-
 void SysTick_Handler(void)
 {
     System_ms++;
+#if LLA_OS_SUPPORT
+
+	if(xTaskGetSchedulerState()!=taskSCHEDULER_NOT_STARTED)//系统已经运行
+	{
+		xPortSysTickHandler();
+	}
+#endif
 }
-
-
 

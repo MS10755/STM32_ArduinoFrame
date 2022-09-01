@@ -10,7 +10,10 @@
 /************************ LLA Interface headers includes ****************************/
 /* Chip SDK headers includes */
 #include "stm32f10x.h"                  // Device header
-
+#if LLA_OS_SUPPORT
+#include "FreeRTOS.h"
+#include "task.h"
+#endif
 
 #define UART_PreemptionPriority		1
 #define UART_SubPriority					0
@@ -313,40 +316,70 @@ void LLA_UART_WriteBuffer(UART_name_t name,uint8_t *data,uint16_t len){
 void USART1_IRQHandler(void)
 {
 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET){
+#if LLA_OS_SUPPORT
+		uint32_t status = taskENTER_CRITICAL_FROM_ISR();
+#endif
 		LLA_UART1_IRQHandler(USART1->DR);
 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+#if LLA_OS_SUPPORT
+		taskEXIT_CRITICAL_FROM_ISR(status);
+#endif
 	}
 }
 
 void USART2_IRQHandler(void)
 {
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET){
+#if LLA_OS_SUPPORT
+		uint32_t status = taskENTER_CRITICAL_FROM_ISR();
+#endif
 		LLA_UART2_IRQHandler(USART2->DR);
 		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+#if LLA_OS_SUPPORT
+		taskEXIT_CRITICAL_FROM_ISR(status);
+#endif
 	}
 }
 
 void USART3_IRQHandler(void)
 {
 	if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET){
+#if LLA_OS_SUPPORT
+		uint32_t status = taskENTER_CRITICAL_FROM_ISR();
+#endif
 		LLA_UART3_IRQHandler(USART3->DR);
 		USART_ClearITPendingBit(USART3, USART_IT_RXNE);
+#if LLA_OS_SUPPORT
+		taskEXIT_CRITICAL_FROM_ISR(status);
+#endif
 	}
 }
 
 void UART4_IRQHandler(void)
 {
 	if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET){
+#if LLA_OS_SUPPORT
+		uint32_t status = taskENTER_CRITICAL_FROM_ISR();
+#endif
 		LLA_UART4_IRQHandler(UART4->DR);
 		USART_ClearITPendingBit(UART4, USART_IT_RXNE);
+#if LLA_OS_SUPPORT
+		taskEXIT_CRITICAL_FROM_ISR(status);
+#endif
 	}
 }
 
 void UART5_IRQHandler(void)
 {
 	if(USART_GetITStatus(UART5, USART_IT_RXNE) != RESET){
+#if LLA_OS_SUPPORT
+		uint32_t status = taskENTER_CRITICAL_FROM_ISR();
+#endif
 		LLA_UART5_IRQHandler(UART5->DR);
 		USART_ClearITPendingBit(UART5, USART_IT_RXNE);
+#if LLA_OS_SUPPORT
+		taskEXIT_CRITICAL_FROM_ISR(status);
+#endif
 	}
 }
 
