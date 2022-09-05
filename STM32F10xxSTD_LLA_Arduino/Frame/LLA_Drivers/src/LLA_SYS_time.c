@@ -93,8 +93,17 @@ uint32_t LLA_SYS_Time_Micros(void)
   * @retval	:	
   */
 void LLA_SYS_Time_DelayMS(uint32_t ms){
+#if LLA_OS_SUPPORT
+	if(xTaskGetSchedulerState()!=taskSCHEDULER_NOT_STARTED){//系统已经运行{
+		vTaskDelay(ms);
+	}else{
+		uint32_t now = LLA_SYS_Time_Millis();
+		while(LLA_SYS_Time_ConsumeMillis(now)<ms);
+	}
+#else
 	uint32_t now = LLA_SYS_Time_Millis();
 	while(LLA_SYS_Time_ConsumeMillis(now)<ms);
+#endif
 }
 
 

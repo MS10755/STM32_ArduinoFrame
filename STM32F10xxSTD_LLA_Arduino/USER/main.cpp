@@ -211,6 +211,30 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+
+#include <SPI.h>
+#include <Ethernet.h>
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
+#include <EthernetClient.h>
+EthernetClient client;
+#define AIO_SERVER      "Your mqtt server"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "Your mqtt username"
+#define AIO_KEY         "Your mqtt password"
+
+
+Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+
+/****************************** Feeds ***************************************/
+
+// Setup a feed called 'photocell' for publishing.
+// Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
+Adafruit_MQTT_Publish photocell = Adafruit_MQTT_Publish(&mqtt,   "/feeds/photocell");
+
+// Setup a feed called 'onoff' for subscribing to changes.
+Adafruit_MQTT_Subscribe onoffbutton = Adafruit_MQTT_Subscribe(&mqtt,  "/feeds/onoff");
+
 #define LED0 PB5
 #define LED1 PE5
 
@@ -218,16 +242,26 @@
 #define START_STK_SIZE 128 //任务堆栈大小
 TaskHandle_t StartTask_Handler; //任务句柄
 void start_task(void *pvParameters); //任务函数
+
 #define LED0_TASK_PRIO 2 //任务优先级
 #define LED0_STK_SIZE 512 //任务堆栈大小
 TaskHandle_t LED0Task_Handler; //任务句柄
 void led0_task(void *p_arg); //任务函数
+
 #define LED1_TASK_PRIO 3 //任务优先级
 #define LED1_STK_SIZE 512 //任务堆栈大小
 TaskHandle_t LED1Task_Handler; //任务句柄
 void led1_task(void *p_arg); //任务函数
 
+#define UART_TASK_PRIO 4 //任务优先级
+#define UART_STK_SIZE 512 //任务堆栈大小
+TaskHandle_t uartTask_Handler; //任务句柄
+void uart_task(void *p_arg); //任务函数
 
+#define UART_TASK_PRIO 4 //任务优先级
+#define UART_STK_SIZE 512 //任务堆栈大小
+TaskHandle_t mqttTask_Handler; //任务句柄
+void mqtt_task(void *p_arg); //任务函数
 
 void start_task(void *pvParameters)
 {
@@ -246,9 +280,29 @@ xTaskCreate((TaskFunction_t )led1_task,
 (void* )NULL,
 (UBaseType_t )LED1_TASK_PRIO,
 (TaskHandle_t* )&LED1Task_Handler);
+
+//创建 串口 任务
+xTaskCreate((TaskFunction_t )uart_task,
+(const char* )"uart_task",
+(uint16_t )UART_STK_SIZE,
+(void* )NULL,
+(UBaseType_t )UART_TASK_PRIO,
+(TaskHandle_t* )&uartTask_Handler);
+
+
+//创建 mqtt 任务
+xTaskCreate((TaskFunction_t )mqtt_task,
+(const char* )"mqtt_task",
+(uint16_t )UART_STK_SIZE,
+(void* )NULL,
+(UBaseType_t )UART_TASK_PRIO,
+(TaskHandle_t* )&mqttTask_Handler);
+
 vTaskDelete(StartTask_Handler); //删除开始任务
 taskEXIT_CRITICAL(); //退出临界区
 }
+
+
 //LED0 任务函数
 void led0_task(void *pvParameters)
 {
@@ -274,10 +328,112 @@ void led1_task(void *pvParameters)
 	}
 }
 
+void uart_task(void *pvParameters)
+{
+	while(1){
+		if(Serial.available()){
+			Serial.print("Hello,I'm got:");
+			while(Serial.available()){
+				Serial.write(Serial.read());
+			}
+			Serial.println();
+		}
+		vTaskDelay(200);
+	}
+}
+
+
+// Function to connect and reconnect as necessary to the MQTT server.
+// Should be called in the loop function and it will take care if connecting.
+void MQTT_connect() {
+  int8_t ret;
+
+  // Stop if already connected.
+  if (mqtt.connected()) {
+    return;
+  }
+
+  Serial.print("Connecting to MQTT... ");
+
+  while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
+       Serial.println(mqtt.connectErrorString(ret));
+       Serial.println("Retrying MQTT connection in 5 seconds...");
+       mqtt.disconnect();
+       vTaskDelay(5000);  // wait 5 seconds
+  }
+  Serial.println("MQTT Connected!");
+}
+
+uint32_t x=0;
+void mqtt_task(void *p_arg){
+	while(1){
+// Ensure the connection to the MQTT server is alive (this will make the first
+  // connection and automatically reconnect when disconnected).  See the MQTT_connect
+  // function definition further below.
+  MQTT_connect();
+
+  // this is our 'wait for incoming subscription packets' busy subloop
+  Adafruit_MQTT_Subscribe *subscription;
+  while ((subscription = mqtt.readSubscription(1000))) {
+    if (subscription == &onoffbutton) {
+      Serial.print(F("Got: "));
+      Serial.println((char *)onoffbutton.lastread);
+    }
+  }
+
+  // Now we can publish stuff!
+  Serial.print(F("\nSending photocell val "));
+  Serial.print(x);
+  Serial.print("...");
+  if (! photocell.publish(x++)) {
+    Serial.println(F("Failed"));
+  } else {
+    Serial.println(F("OK!"));
+  }
+
+  // ping the server to keep the mqtt connection alive
+  if(! mqtt.ping()) {
+    mqtt.disconnect();
+  }
+
+	}
+}
+
+
+
+
+// Enter a MAC address for your controller below.
+// Newer Ethernet shields have a MAC address printed on a sticker on the shield
+byte mac[] = {
+  0xD2, 0xA2, 0xBC, 0xD9, 0xD2, 0x09
+};
 void setup(){
 	pinMode(LED0,OUTPUT);
 	pinMode(LED1,OUTPUT);
-	
+	pinMode(PD7,OUTPUT);
+	digitalWrite(PD7,LOW);
+	delay(1000);
+	digitalWrite(PD7,HIGH);
+	delay(1000);
+	Ethernet.init(PG9);
+// start the Ethernet connection:
+  Serial.println("Initialize Ethernet with DHCP:");
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+    } else if (Ethernet.linkStatus() == LinkOFF) {
+      Serial.println("Ethernet cable is not connected.");
+    }
+    // no point in carrying on, so do nothing forevermore:
+    while (true) {
+      delay(1);
+    }
+  }
+  // print your local IP address:
+  Serial.print("My IP address: ");
+  Serial.println(Ethernet.localIP());
+	mqtt.subscribe(&onoffbutton);
 //创建开始任务
 xTaskCreate((TaskFunction_t )start_task, //任务函数
 (const char* )"start_task", //任务名称
