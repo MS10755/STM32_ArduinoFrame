@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,ARDUINO=111,ARDUINO_STM32</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Frame\LLA_Drivers;..\Drivers\STM32F10x_StdPeriph_Driver\inc;..\Drivers\CMSIS\CM3\CoreSupport;..\Drivers\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\Frame;..\USER;..\Drivers\STM32F10x_StdPeriph_Driver;..\Drivers;..\Frame\ArduinoAPI;..\Libraries\Ethernet\src;..\Libraries\Adafruit_MQTT_Library;..\Libraries\ArduinoJson;..\Libraries\ArduinoJson\src;..\Libraries\Adafruit_BusIO;..\Libraries\Adafruit_GFX_Library;..\Libraries\Adafruit_ILI9481FMC16_Library;..\Libraries\Adafruit_ST7735-Library;..\Libraries\Adafruit_SSD1309_Library;..\Libraries\MillisTaskManager;..\Libraries\SdFat\src;..\Libraries\SdFat\src\SdCard;..\Drivers\USB\STM32_USB-FS-Device_Driver\inc;..\Drivers\USB\APP\Virtual_COM_Port\inc;..\Drivers\USB\APP\Mass_Storage\inc;..\Libraries\Adafruit_VS1053_Library;..\FreeRTOSv9.0.0\inc;..\FreeRTOSv9.0.0\port;..\FreeRTOSv9.0.0\port\GCC\ARM_CM3;..\Libraries\Arduino-Websocket-Fast\src;..\Libraries\EEPROM\src</IncludePath>
+              <IncludePath>..\Frame\LLA_Drivers;..\Drivers\STM32F10x_StdPeriph_Driver\inc;..\Drivers\CMSIS\CM3\CoreSupport;..\Drivers\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\Frame;..\USER;..\Drivers\STM32F10x_StdPeriph_Driver;..\Drivers;..\Frame\ArduinoAPI;..\Libraries\Ethernet\src;..\Libraries\Adafruit_MQTT_Library;..\Libraries\ArduinoJson;..\Libraries\ArduinoJson\src;..\Libraries\Adafruit_BusIO;..\Libraries\Adafruit_GFX_Library;..\Libraries\Adafruit_ILI9481FMC16_Library;..\Libraries\Adafruit_ST7735-Library;..\Libraries\Adafruit_SSD1309_Library;..\Libraries\MillisTaskManager;..\Libraries\SdFat\src;..\Libraries\SdFat\src\SdCard;..\Drivers\USB\STM32_USB-FS-Device_Driver\inc;..\Drivers\USB\APP\Virtual_COM_Port\inc;..\Drivers\USB\APP\Mass_Storage\inc;..\Libraries\Adafruit_VS1053_Library;..\FreeRTOSv9.0.0\inc;..\FreeRTOSv9.0.0\port;..\FreeRTOSv9.0.0\port\GCC\ARM_CM3;..\Libraries\Arduino-Websocket-Fast\src;..\Libraries\EEPROM\src;..\Libraries\w25qxx\src;..\Libraries\w25qxx\interface;..\Libraries\littlefs;..\Libraries\w25qxx;..\Libraries\littlefs\device</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -731,6 +731,11 @@
               <FileName>debug_wrapper.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\USER\debug_wrapper.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\stdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1357,6 +1362,46 @@
               <FileName>flash_cache.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Libraries\EEPROM\src\utility\flash_cache.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>w25qxx</GroupName>
+          <Files>
+            <File>
+              <FileName>driver_w25qxx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\w25qxx\src\driver_w25qxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>driver_w25qxx_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\w25qxx\interface\driver_w25qxx_interface.c</FilePath>
+            </File>
+            <File>
+              <FileName>w25q128_user.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\w25qxx\w25q128_user.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>littlefs</GroupName>
+          <Files>
+            <File>
+              <FileName>lfs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\littlefs\lfs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lfs_util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\littlefs\lfs_util.c</FilePath>
+            </File>
+            <File>
+              <FileName>dev_w25q128flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\littlefs\device\dev_w25q128flash.c</FilePath>
             </File>
           </Files>
         </Group>

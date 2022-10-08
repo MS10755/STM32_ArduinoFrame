@@ -27,7 +27,7 @@
           #define RTE_Compiler_IO_STDOUT_BKPT     /* Compiler I/O: STDOUT Breakpoint */
 /*  Keil.ARM Compiler::Compiler:I/O:TTY:Breakpoint:1.2.0 */
 #define RTE_Compiler_IO_TTY             /* Compiler I/O: TTY */
-          #define RTE_Compiler_IO_TTY_BKPT        /* Compiler I/O: TTY Breakpoint */
+          #define RTE_Compiler_IO_TTY_User        /* Compiler I/O: TTY Breakpoint */
 
 
 #endif /* RTE_COMPONENTS_H */

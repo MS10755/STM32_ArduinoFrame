@@ -86,74 +86,114 @@
 //	LLA_WDG_Feed();
 //}
 
-/***
-    eeprom_put example.
+///***
+//    eeprom_put example.
 
-    This shows how to use the EEPROM.put() method.
-    Also, this sketch will pre-set the EEPROM data for the
-    example sketch eeprom_get.
+//    This shows how to use the EEPROM.put() method.
+//    Also, this sketch will pre-set the EEPROM data for the
+//    example sketch eeprom_get.
 
-    Note, unlike the single byte version EEPROM.write(),
-    the put method will use update semantics. As in a byte
-    will only be written to the EEPROM if the data is actually
-    different.
+//    Note, unlike the single byte version EEPROM.write(),
+//    the put method will use update semantics. As in a byte
+//    will only be written to the EEPROM if the data is actually
+//    different.
 
-    Written by Christopher Andrews 2015
-    Released under MIT licence.
-***/
+//    Written by Christopher Andrews 2015
+//    Released under MIT licence.
+//***/
 
-#include <EEPROM.h>
+//#include <EEPROM.h>
 
-struct MyObject {
-  float field1;
-  byte field2;
-  char name[10];
-};
+//struct MyObject {
+//  float field1;
+//  byte field2;
+//  char name[10];
+//};
 
-void setup() {
-	
-	EEPROM.begin();
-	
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+//void setup() {
+//	
+//	EEPROM.begin();
+//	
+//  Serial.begin(9600);
+//  while (!Serial) {
+//    ; // wait for serial port to connect. Needed for native USB port only
+//  }
 
-  float f = 123.456f;  //Variable to store in EEPROM.
-  int eeAddress = 0;   //Location we want the data to be put.
+//  float f = 123.456f;  //Variable to store in EEPROM.
+//  int eeAddress = 0;   //Location we want the data to be put.
 
 
-  //One simple call, with the address first and the object second.
-  EEPROM.put(eeAddress, f);
+//  //One simple call, with the address first and the object second.
+//  EEPROM.put(eeAddress, f);
 
-  Serial.println("Written float data type!");
+//  Serial.println("Written float data type!");
 
-  /** Put is designed for use with custom structures also. **/
+//  /** Put is designed for use with custom structures also. **/
 
-  //Data to store.
-  MyObject customVar = {
-    3.14f,
-    65,
-    "Working!"
-  };
+//  //Data to store.
+//  MyObject customVar = {
+//    3.14f,
+//    65,
+//    "Working!"
+//  };
 
-  eeAddress += sizeof(float); //Move address to the next byte after float 'f'.
+//  eeAddress += sizeof(float); //Move address to the next byte after float 'f'.
 
-  EEPROM.put(eeAddress, customVar);
-  Serial.print("Written custom data type! \n\nView the example sketch eeprom_get to see how you can retrieve the values!");
-	EEPROM.end();
-	
-	
-	EEPROM.begin();
-	eeAddress = 0;
-	float _f;
-	MyObject _customVar;
-	EEPROM.get(eeAddress,_f);
-	EEPROM.get(eeAddress+sizeof(float),_customVar);
-	Serial.printf("_f:%f customVar1:%f customVar2:%d customVar3:%s\r\n",_f,_customVar.field1,_customVar.field2,_customVar.name);
-	EEPROM.end();
+//  EEPROM.put(eeAddress, customVar);
+//  Serial.print("Written custom data type! \n\nView the example sketch eeprom_get to see how you can retrieve the values!");
+//	EEPROM.end();
+//	
+//	
+//	EEPROM.begin();
+//	eeAddress = 0;
+//	float _f;
+//	MyObject _customVar;
+//	EEPROM.get(eeAddress,_f);
+//	EEPROM.get(eeAddress+sizeof(float),_customVar);
+//	Serial.printf("_f:%f customVar1:%f customVar2:%d customVar3:%s\r\n",_f,_customVar.field1,_customVar.field2,_customVar.name);
+//	EEPROM.end();
+//}
+
+//void loop() {
+//  /* Empty loop */
+//}
+
+#include <Arduino.h>
+#include "w25q128_user.h"
+#include "lfs.h"
+#include "lfs_dev.h"
+// variables used by the filesystem
+lfs_t lfs;
+lfs_file_t file;
+
+static uint8_t buf[4096];
+void setup(){
+	Serial.begin(115200);
+	w25q128_user_init();
+    // mount the filesystem
+  int err = lfs_mount(&lfs, &dev_w25q128_cfg);
+
+    // reformat if we can't mount the filesystem
+    // this should only happen on the first boot
+    if (err) {
+        lfs_format(&lfs, &dev_w25q128_cfg);
+        lfs_mount(&lfs, &dev_w25q128_cfg);
+    }
+		
+		lfs_file_open(&lfs,&file,"test.txt", LFS_O_RDWR | LFS_O_CREAT);
+		char buf_r[128];
+		int len = lfs_file_read(&lfs,&file,buf_r,sizeof(buf_r));
+		if(len){
+			Serial.println("test.txt ÄÚÈÝÎª:");
+			Serial.write(buf_r,len);
+			Serial.println();
+		}
+		
+		char buf[]="Hello,World!";
+		lfs_file_write(&lfs,&file,buf,sizeof(buf));
+		lfs_file_close(&lfs,&file);
 }
 
-void loop() {
-  /* Empty loop */
+
+void loop(){
 }
