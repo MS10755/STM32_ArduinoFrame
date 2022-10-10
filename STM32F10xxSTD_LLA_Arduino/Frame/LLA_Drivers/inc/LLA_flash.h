@@ -24,8 +24,8 @@ extern "C" {
 
 void LLA_Flash_Init(void);
 uint32_t LLA_Flash_GetSize(void);
-void LLA_Flash_Erase(uint32_t offset,uint32_t len);
-void LLA_Flash_WriteBytes(uint32_t offset,uint8_t *data,uint32_t len);
+uint8_t LLA_Flash_Erase(uint32_t offset,uint32_t len);
+uint8_t LLA_Flash_WriteBytes(uint32_t offset,uint8_t *data,uint32_t len);
 void LLA_Flash_ReadBytes(uint32_t offset,uint8_t *data,uint32_t len);
 
 #ifdef __cplusplus

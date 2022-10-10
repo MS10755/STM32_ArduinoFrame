@@ -114,7 +114,7 @@
 //	
 //	EEPROM.begin();
 //	
-//  Serial.begin(9600);
+//  Serial.begin(115200);
 //  while (!Serial) {
 //    ; // wait for serial port to connect. Needed for native USB port only
 //  }
@@ -171,17 +171,17 @@ void setup(){
 	Serial.begin(115200);
 	w25q128_user_init();
     // mount the filesystem
-  int err = lfs_mount(&lfs, &dev_w25q128_cfg);
+  int err = lfs_mount(&lfs, &dev_stm32f10x_hd_cfg);
 
     // reformat if we can't mount the filesystem
     // this should only happen on the first boot
     if (err) {
-        lfs_format(&lfs, &dev_w25q128_cfg);
-        lfs_mount(&lfs, &dev_w25q128_cfg);
+        lfs_format(&lfs, &dev_stm32f10x_hd_cfg);
+        lfs_mount(&lfs, &dev_stm32f10x_hd_cfg);
     }
 		
 		lfs_file_open(&lfs,&file,"test.txt", LFS_O_RDWR | LFS_O_CREAT);
-		char buf_r[128];
+		char buf_r[256];
 		int len = lfs_file_read(&lfs,&file,buf_r,sizeof(buf_r));
 		if(len){
 			Serial.println("test.txt ÄÚÈÝÎª:");

@@ -27,14 +27,14 @@
 #endif
 
 
-#if defined (STM32F10X_HD) || defined (STM32F10X_HD_VL) || defined (STM32F10X_CL) || defined (STM32F10X_XL)
-  #define FLASH_ADDR_START    ((uint32_t)0x0807F800)
+#if defined (STM32F10X_HD) || defined (STM32F10X_HD_VL) || defined (STM32F10X_CL) || defined (STM32F10X_XL) /* 256K for HD device */
+  #define FLASH_ADDR_START    ((uint32_t)0x08040000)
 	#define FLASH_ADDR_END			((uint32_t)0x0807FFFF)
-#elif	defined (STM32F10X_MD) || defined (STM32F10X_MD_VL)
-  #define FLASH_ADDR_START    ((uint32_t)0x0801FC00)
+#elif	defined (STM32F10X_MD) || defined (STM32F10X_MD_VL)	/* 32K for MD device */
+  #define FLASH_ADDR_START    ((uint32_t)0x08018000)
 	#define FLASH_ADDR_END			((uint32_t)0x0801FFFF)
 #else
-  #define FLASH_ADDR_START    ((uint32_t)0x08007C00)
+  #define FLASH_ADDR_START    ((uint32_t)0x08007C00)	/* 1K for LD device */
 	#define FLASH_ADDR_END			((uint32_t)0x08007FFF)
 #endif
 
@@ -68,7 +68,7 @@ void LLA_Flash_Init(){
  * @return {*}
  * @author: Your name
  */
-void LLA_Flash_Erase(uint32_t offset,uint32_t len){
+uint8_t LLA_Flash_Erase(uint32_t offset,uint32_t len){
 	FLASH_Status status;
   uint32_t addr = FLASH_ADDR_START + offset;
 	uint8_t pageNumber = len / FLASH_PAGE_SIZE;
@@ -78,10 +78,11 @@ void LLA_Flash_Erase(uint32_t offset,uint32_t len){
 		if(status != FLASH_COMPLETE){
 			FLASH_LockBank1();
 			LLA_ASSERT(0, DriverCode_Flash, FLASH_errorErase);
-			return;
+			return 0;
 		}
 	}
 	FLASH_LockBank1();
+	return 1;
 }
 
 /**
@@ -92,7 +93,7 @@ void LLA_Flash_Erase(uint32_t offset,uint32_t len){
  * @return {*}
  * @author: Your name
  */
-void LLA_Flash_WriteBytes(uint32_t offset,uint8_t *data,uint32_t len){
+uint8_t LLA_Flash_WriteBytes(uint32_t offset,uint8_t *data,uint32_t len){
 	LLA_ASSERT(offset%2==0,DriverCode_Flash, FLASH_errorAddrAlignment);//F10x系列必须以2字节对齐写入
 	uint32_t halfWordNum = len/2 + (len%2==0?0:1);
 	
@@ -108,11 +109,16 @@ void LLA_Flash_WriteBytes(uint32_t offset,uint8_t *data,uint32_t len){
 		}else{
 			halfWord = data[1]<<8 | data[0];
 		}
-		FLASH_ProgramHalfWord(addr,halfWord);
+		if(FLASH_ProgramHalfWord(addr,halfWord) != FLASH_COMPLETE){
+			FLASH_LockBank1();
+			LLA_ASSERT(0, DriverCode_Flash, FLASH_errorWrite);
+			return 0;
+		}
 		addr+=2;
 		data+=2;
 	}
 	FLASH_LockBank1();
+	return 1;
 }
 
 /**

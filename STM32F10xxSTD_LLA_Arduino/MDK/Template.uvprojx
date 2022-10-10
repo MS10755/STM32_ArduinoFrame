@@ -1403,6 +1403,16 @@
               <FileType>1</FileType>
               <FilePath>..\Libraries\littlefs\device\dev_w25q128flash.c</FilePath>
             </File>
+            <File>
+              <FileName>dev_stm32f10x_hd_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\littlefs\device\dev_stm32f10x_hd_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>dev_stm32f10x_md_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Libraries\littlefs\device\dev_stm32f10x_md_flash.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
